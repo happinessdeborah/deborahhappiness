@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Deborah | Operations Coordinator & Project Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ink: #0f1117;
+    --cream: #f7f2eb;
+    --warm: #ede8df;
+    --gold: #c8963e;
+    --gold-light: #e8b96a;
+    --slate: #1e2333;
+    --muted: #6b7080;
+    --white: #ffffff;
+    --card-bg: #ffffff;
+    --border: rgba(200,150,62,0.18);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 5%;
+    background: rgba(247,242,235,0.88);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    animation: slideDown .6s ease both;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700;
+    color: var(--ink); letter-spacing: -.5px;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: .88rem; font-weight: 500; letter-spacing: .04em;
+    color: var(--muted); text-decoration: none; text-transform: uppercase;
+    transition: color .25s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold); color: #fff;
+    padding: .55rem 1.4rem; border-radius: 100px;
+    font-size: .85rem; font-weight: 600;
+    text-decoration: none; transition: background .25s, transform .2s;
+    letter-spacing: .03em;
+  }
+  .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh; display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center; gap: 4rem;
+    padding: 8rem 5% 5rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -120px; right: -120px;
+    width: 520px; height: 520px;
+    background: radial-gradient(circle, rgba(200,150,62,.18) 0%, transparent 70%);
+    border-radius: 50%; pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -80px; left: 10%;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(200,150,62,.1) 0%, transparent 70%);
+    border-radius: 50%; pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: rgba(200,150,62,.12); border: 1px solid var(--border);
+    color: var(--gold); padding: .4rem 1rem; border-radius: 100px;
+    font-size: .8rem; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; margin-bottom: 1.6rem;
+    animation: fadeUp .7s .1s both;
+  }
+  .hero-badge::before { content: '●'; font-size: .5rem; }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 5vw, 4.2rem);
+    font-weight: 700; line-height: 1.1;
+    color: var(--ink); margin-bottom: 1.4rem;
+    animation: fadeUp .7s .2s both;
+  }
+  .hero-title em { color: var(--gold); font-style: italic; }
+  .hero-subtitle {
+    font-size: 1.05rem; color: var(--muted);
+    line-height: 1.75; max-width: 480px;
+    margin-bottom: 2.4rem;
+    animation: fadeUp .7s .3s both;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp .7s .4s both;
+  }
+  .btn-primary {
+    background: var(--ink); color: #fff;
+    padding: .85rem 2rem; border-radius: 100px;
+    font-size: .95rem; font-weight: 600;
+    text-decoration: none; transition: all .25s;
+    letter-spacing: .02em;
+  }
+  .btn-primary:hover { background: var(--gold); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,150,62,.3); }
+  .btn-outline {
+    border: 2px solid var(--ink); color: var(--ink);
+    padding: .85rem 2rem; border-radius: 100px;
+    font-size: .95rem; font-weight: 600;
+    text-decoration: none; transition: all .25s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem;
+    margin-top: 3rem; padding-top: 3rem;
+    border-top: 1px solid var(--border);
+    animation: fadeUp .7s .5s both;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 700; color: var(--gold);
+  }
+  .stat-label { font-size: .8rem; color: var(--muted); font-weight: 500; margin-top: .2rem; }
+
+  /* Hero Right — visual card */
+  .hero-visual {
+    animation: fadeLeft .8s .3s both;
+    position: relative;
+  }
+  .profile-card {
+    background: var(--white);
+    border-radius: 24px;
+    padding: 2.5rem;
+    box-shadow: 0 20px 60px rgba(15,17,23,.1), 0 4px 16px rgba(200,150,62,.08);
+    border: 1px solid var(--border);
+    position: relative; overflow: hidden;
+  }
+  .profile-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  }
+  .profile-avatar {
+    width: 88px; height: 88px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; color: #fff; font-weight: 700;
+    margin-bottom: 1.2rem; position: relative;
+  }
+  .profile-avatar::after {
+    content: '✓';
+    position: absolute; bottom: 2px; right: 2px;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: #22c55e; color: #fff;
+    font-size: .7rem; display: flex; align-items: center; justify-content: center;
+    border: 2px solid #fff;
+  }
+  .profile-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 700; margin-bottom: .3rem;
+  }
+  .profile-role { font-size: .9rem; color: var(--muted); margin-bottom: 1.5rem; }
+  .profile-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.8rem; }
+  .tag {
+    background: var(--warm); color: var(--ink);
+    padding: .35rem .9rem; border-radius: 100px;
+    font-size: .78rem; font-weight: 600; letter-spacing: .02em;
+    border: 1px solid var(--border);
+  }
+  .upwork-badge {
+    background: #14a800; color: #fff;
+    padding: .6rem 1.2rem; border-radius: 12px;
+    display: flex; align-items: center; gap: .6rem;
+    font-size: .88rem; font-weight: 600;
+  }
+  .upwork-badge .stars { color: #ffd700; letter-spacing: 1px; }
+
+  .floating-card {
+    position: absolute; right: -20px; bottom: 60px;
+    background: var(--white); border-radius: 14px;
+    padding: 1rem 1.2rem;
+    box-shadow: 0 8px 30px rgba(15,17,23,.12);
+    border: 1px solid var(--border);
+    font-size: .82rem; font-weight: 500;
+    display: flex; align-items: center; gap: .6rem;
+    animation: float 3s ease-in-out infinite;
+  }
+  .floating-card .icon { font-size: 1.2rem; }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 6rem 5%; }
+  .section-label {
+    display: inline-flex; align-items: center; gap: .5rem;
+    color: var(--gold); font-size: .8rem;
+    font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .section-label::before { content: ''; width: 28px; height: 2px; background: var(--gold); }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700; line-height: 1.15;
+    margin-bottom: 1rem; color: var(--ink);
+  }
+  .section-title em { color: var(--gold); font-style: italic; }
+  .section-sub { color: var(--muted); font-size: 1rem; line-height: 1.7; max-width: 560px; }
+
+  /* ── EXPERTISE ── */
+  .expertise { background: var(--slate); color: var(--cream); }
+  .expertise .section-title { color: var(--cream); }
+  .expertise .section-sub { color: rgba(237,232,223,.65); }
+  .expertise-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+    gap: 1.5rem; margin-top: 3.5rem;
+  }
+  .exp-card {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(200,150,62,.2);
+    border-radius: 20px; padding: 2rem;
+    transition: all .3s; cursor: default;
+    position: relative; overflow: hidden;
+  }
+  .exp-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .4s;
+  }
+  .exp-card:hover::before { transform: scaleX(1); }
+  .exp-card:hover { background: rgba(200,150,62,.08); transform: translateY(-4px); }
+  .exp-icon { font-size: 2rem; margin-bottom: 1.2rem; }
+  .exp-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 600;
+    color: var(--cream); margin-bottom: .8rem;
+  }
+  .exp-desc { font-size: .88rem; line-height: 1.7; color: rgba(237,232,223,.6); }
+  .exp-tools { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1.2rem; }
+  .exp-tool {
+    background: rgba(200,150,62,.15); color: var(--gold-light);
+    padding: .25rem .7rem; border-radius: 100px;
+    font-size: .73rem; font-weight: 600;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr));
+    gap: 2rem; margin-top: 3.5rem;
+  }
+  .project-card {
+    background: var(--white); border-radius: 20px;
+    border: 1px solid rgba(200,150,62,.15);
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(15,17,23,.06);
+    transition: all .35s; position: relative;
+  }
+  .project-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(15,17,23,.12); }
+  .project-header {
+    padding: 2rem 2rem 1.5rem;
+    background: linear-gradient(135deg, var(--warm) 0%, var(--cream) 100%);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .project-type {
+    font-size: .75rem; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: .8rem;
+    display: flex; align-items: center; gap: .5rem;
+  }
+  .project-type::before { content: ''; width: 20px; height: 2px; background: var(--gold); }
+  .project-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 700;
+    color: var(--ink); line-height: 1.3;
+  }
+  .project-industry {
+    display: inline-flex; margin-top: .8rem;
+    background: rgba(200,150,62,.15); color: var(--gold);
+    padding: .3rem .8rem; border-radius: 100px;
+    font-size: .75rem; font-weight: 600;
+  }
+  .project-body { padding: 1.8rem 2rem; }
+  .project-challenge {
+    font-size: .88rem; color: var(--muted); line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .project-metrics {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 1rem; margin-bottom: 1.5rem;
+    padding: 1.2rem; background: var(--warm);
+    border-radius: 12px; border: 1px solid var(--border);
+  }
+  .metric { text-align: center; }
+  .metric-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700; color: var(--gold); display: block;
+  }
+  .metric-key { font-size: .72rem; color: var(--muted); font-weight: 500; }
+  .deliverables { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+  .deliverables li {
+    font-size: .85rem; color: var(--ink);
+    display: flex; align-items: flex-start; gap: .6rem; line-height: 1.5;
+  }
+  .deliverables li::before {
+    content: '✦'; color: var(--gold); font-size: .6rem;
+    margin-top: .3rem; flex-shrink: 0;
+  }
+  .project-footer {
+    padding: 1.2rem 2rem;
+    border-top: 1px solid var(--border);
+    display: flex; flex-wrap: wrap; gap: .4rem;
+  }
+  .tool-pill {
+    background: var(--warm); color: var(--muted);
+    padding: .3rem .8rem; border-radius: 100px;
+    font-size: .73rem; font-weight: 600;
+    border: 1px solid var(--border);
+  }
+
+  /* ── TOOLS ── */
+  .tools-section { background: var(--warm); }
+  .tools-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+    gap: 1rem; margin-top: 3rem;
+  }
+  .tool-card {
+    background: var(--white); border-radius: 16px;
+    padding: 1.5rem; text-align: center;
+    border: 1px solid var(--border);
+    transition: all .3s;
+  }
+  .tool-card:hover { transform: translateY(-4px); border-color: var(--gold); box-shadow: 0 8px 28px rgba(200,150,62,.15); }
+  .tool-emoji { font-size: 2rem; margin-bottom: .7rem; }
+  .tool-name { font-size: .88rem; font-weight: 600; color: var(--ink); }
+  .tool-cat { font-size: .73rem; color: var(--muted); margin-top: .2rem; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+    gap: 1.8rem; margin-top: 3.5rem;
+  }
+  .testi-card {
+    background: var(--white); border-radius: 20px;
+    padding: 2rem; border: 1px solid var(--border);
+    box-shadow: 0 4px 16px rgba(15,17,23,.05);
+    position: relative; transition: transform .3s;
+  }
+  .testi-card:hover { transform: translateY(-4px); }
+  .testi-card::before {
+    content: '"'; font-family: 'Playfair Display', serif;
+    font-size: 5rem; color: var(--gold); opacity: .15;
+    position: absolute; top: -10px; left: 1.5rem;
+    line-height: 1;
+  }
+  .stars { color: var(--gold); font-size: 1rem; letter-spacing: 2px; margin-bottom: 1rem; }
+  .testi-text { font-size: .9rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.5rem; font-style: italic; }
+  .testi-author { display: flex; align-items: center; gap: .8rem; }
+  .testi-avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; color: #fff; font-size: .85rem;
+  }
+  .testi-name { font-weight: 600; font-size: .88rem; }
+  .testi-company { font-size: .78rem; color: var(--muted); }
+
+  /* ── PROCESS ── */
+  .process-section { background: var(--slate); color: var(--cream); }
+  .process-section .section-title { color: var(--cream); }
+  .process-section .section-sub { color: rgba(237,232,223,.65); }
+  .process-steps {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+    gap: 1.5rem; margin-top: 3.5rem; position: relative;
+  }
+  .process-step {
+    text-align: center; padding: 2rem 1.5rem;
+    background: rgba(255,255,255,.04); border-radius: 18px;
+    border: 1px solid rgba(200,150,62,.15);
+    transition: background .3s;
+  }
+  .process-step:hover { background: rgba(200,150,62,.08); }
+  .step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; font-weight: 700;
+    color: rgba(200,150,62,.2); line-height: 1;
+    margin-bottom: .5rem;
+  }
+  .step-title {
+    font-size: 1rem; font-weight: 600;
+    color: var(--cream); margin-bottom: .6rem;
+  }
+  .step-desc { font-size: .83rem; color: rgba(237,232,223,.55); line-height: 1.65; }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+    text-align: center; padding: 7rem 5%;
+    position: relative; overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute; top: -100px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(255,255,255,.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .cta-section .section-title { color: #fff; }
+  .cta-section .section-sub { color: rgba(255,255,255,.8); margin: 0 auto 2.5rem; }
+  .btn-white {
+    background: #fff; color: var(--gold);
+    padding: 1rem 2.5rem; border-radius: 100px;
+    font-size: 1rem; font-weight: 700;
+    text-decoration: none; transition: all .3s;
+    display: inline-block;
+  }
+  .btn-white:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,.2); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink); color: rgba(247,242,235,.5);
+    text-align: center; padding: 2rem 5%;
+    font-size: .82rem;
+  }
+  footer span { color: var(--gold); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  @keyframes fadeUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  @keyframes fadeLeft { from { transform: translateX(40px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; padding-top: 7rem; }
+    .hero-visual { display: none; }
+    .hero-stats { grid-template-columns: repeat(3,1fr); }
+    nav { padding: 1rem 4%; }
+    .nav-links { display: none; }
+    .project-metrics { grid-template-columns: repeat(3,1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span>D</span>H</div>
+  <ul class="nav-links">
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Work With Me →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="grid-template-columns:1fr; justify-items:center; text-align:center;">
+  <div class="hero-left" style="max-width:720px;">
+    <h1 class="hero-title">
+      Turning Operational<br/><em>Chaos into Clarity</em>
+    </h1>
+    <p class="hero-subtitle" style="margin:0 auto 2.4rem;">
+      I'm Deborah — an Operations Coordinator & Project Manager with 4+ years of experience helping startups, corporates, and NGOs run smoother, faster, and smarter. I specialize in building the systems and workflows that let your team actually breathe.
+    </p>
+    <div class="hero-actions" style="justify-content:center;">
+      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-outline">Let's Talk</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">30+</div>
+        <div class="stat-label">Projects Delivered</div>
+      </div>
+      <div>
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Client Satisfaction</div>
+      </div>
+      <div>
+        <div class="stat-num">4 yrs</div>
+        <div class="stat-label">Experience</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERTISE -->
+<section class="expertise" id="expertise">
+  <div class="reveal">
+    <span class="section-label">What I Do</span>
+    <h2 class="section-title">My Core <em>Expertise</em></h2>
+    <p class="section-sub">Four pillars that I've sharpened across dozens of projects — and the exact areas clients come to me for when things need to get done right.</p>
+  </div>
+  <div class="expertise-grid">
+    <div class="exp-card reveal">
+      <div class="exp-icon">🔄</div>
+      <div class="exp-title">Process & Workflow Optimization</div>
+      <div class="exp-desc">I audit existing operations, identify bottlenecks, and redesign workflows that scale. Whether it's automating repetitive tasks or restructuring team pipelines, I make sure nothing falls through the cracks.</div>
+      <div class="exp-tools">
+        <span class="exp-tool">SOPs</span>
+        <span class="exp-tool">Process Mapping</span>
+        <span class="exp-tool">Automation</span>
+      </div>
+    </div>
+    <div class="exp-card reveal">
+      <div class="exp-icon">🛠️</div>
+      <div class="exp-title">Tools & Systems Setup</div>
+      <div class="exp-desc">From scratch or from chaos — I build and configure project management ecosystems that teams actually use. Dashboards, databases, templates, views — all tailored to how you work.</div>
+      <div class="exp-tools">
+        <span class="exp-tool">Asana</span>
+        <span class="exp-tool">Notion</span>
+        <span class="exp-tool">ClickUp</span>
+        <span class="exp-tool">Monday</span>
+      </div>
+    </div>
+    <div class="exp-card reveal">
+      <div class="exp-icon">👥</div>
+      <div class="exp-title">Team Coordination & Communication</div>
+      <div class="exp-desc">I serve as the connective tissue between teams, departments, and stakeholders — keeping everyone aligned, informed, and accountable without the noise of endless meetings.</div>
+      <div class="exp-tools">
+        <span class="exp-tool">Slack</span>
+        <span class="exp-tool">Loom</span>
+        <span class="exp-tool">Status Reports</span>
+      </div>
+    </div>
+    <div class="exp-card reveal">
+      <div class="exp-icon">🎯</div>
+      <div class="exp-title">Event & Launch Coordination</div>
+      <div class="exp-desc">Product launches, team retreats, virtual summits — I manage every moving part from planning to debrief. You focus on the vision; I'll make sure it actually happens.</div>
+      <div class="exp-tools">
+        <span class="exp-tool">Project Roadmaps</span>
+        <span class="exp-tool">Vendor Mgmt</span>
+        <span class="exp-tool">Launch Plans</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" style="background: var(--cream);">
+  <div class="reveal">
+    <span class="section-label">Work Samples</span>
+    <h2 class="section-title">Featured <em>Projects</em></h2>
+    <p class="section-sub">Real challenges, real results. Here's a look at the kind of work I do and the outcomes I deliver for clients.</p>
+  </div>
+  <div class="projects-grid">
+
+    <!-- PROJECT 1 -->
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-type">Operations Overhaul</div>
+        <div class="project-name">Remote Team Ops Setup for a Growing Marketing Agency</div>
+        <span class="project-industry">🏢 Digital Agency · 18-person team</span>
+      </div>
+      <div class="project-body">
+        <p class="project-challenge">The client had a fast-growing remote team with no centralized PM system — tasks lived in emails, deadlines were missed, and onboarding new hires took over 3 weeks. They needed a complete operational overhaul.</p>
+        <div class="project-metrics">
+          <div class="metric"><span class="metric-val">62%</span><span class="metric-key">Faster Onboarding</span></div>
+          <div class="metric"><span class="metric-val">3×</span><span class="metric-key">Task Visibility</span></div>
+          <div class="metric"><span class="metric-val">0</span><span class="metric-key">Missed Deadlines</span></div>
+        </div>
+        <ul class="deliverables">
+          <li>Built a full Notion OS — team wiki, project hub, client tracker & HR database</li>
+          <li>Designed onboarding checklist and standard templates for recurring campaigns</li>
+          <li>Set up weekly standups, retrospectives & async update workflows</li>
+          <li>Trained team leads on SOPs and system governance</li>
+        </ul>
+      </div>
+      <div class="project-footer">
+        <span class="tool-pill">Notion</span>
+        <span class="tool-pill">Slack</span>
+        <span class="tool-pill">Loom</span>
+        <span class="tool-pill">Google Workspace</span>
+      </div>
+    </div>
+
+    <!-- PROJECT 3 -->
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-type">Workflow Redesign</div>
+        <div class="project-name">Operational Audit & Process Redesign for an NGO</div>
+        <span class="project-industry">🌍 Non-profit · East Africa operations</span>
+      </div>
+      <div class="project-body">
+        <p class="project-challenge">An established NGO was struggling with duplicated work across departments, poor grant reporting timelines, and a volunteer coordination system that relied entirely on spreadsheets and WhatsApp.</p>
+        <div class="project-metrics">
+          <div class="metric"><span class="metric-val">45%</span><span class="metric-key">Time Saved</span></div>
+          <div class="metric"><span class="metric-val">100%</span><span class="metric-key">Report On-Time</span></div>
+          <div class="metric"><span class="metric-val">3</span><span class="metric-key">Depts Unified</span></div>
+        </div>
+        <ul class="deliverables">
+          <li>Conducted a full ops audit across programs, finance & comms departments</li>
+          <li>Migrated volunteer coordination to Asana with automated assignment workflows</li>
+          <li>Built grant reporting templates aligned to donor requirements</li>
+          <li>Documented 8 core SOPs to be used across all field offices</li>
+        </ul>
+      </div>
+      <div class="project-footer">
+        <span class="tool-pill">Asana</span>
+        <span class="tool-pill">Google Sheets</span>
+        <span class="tool-pill">Zapier</span>
+        <span class="tool-pill">Canva</span>
+      </div>
+    </div>
+
+    <!-- PROJECT 4 -->
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-type">Event Coordination</div>
+        <div class="project-name">Virtual Leadership Summit — 200+ Attendees Across 4 Countries</div>
+        <span class="project-industry">🏛️ Corporate · 6-week planning window</span>
+      </div>
+      <div class="project-body">
+        <p class="project-challenge">A multinational firm needed a coordinator to plan and execute a 3-day virtual leadership summit with keynotes, breakout sessions, a live awards ceremony and real-time tech support — all in 6 weeks.</p>
+        <div class="project-metrics">
+          <div class="metric"><span class="metric-val">217</span><span class="metric-key">Attendees</span></div>
+          <div class="metric"><span class="metric-val">4.9★</span><span class="metric-key">Avg. Rating</span></div>
+          <div class="metric"><span class="metric-val">Zero</span><span class="metric-key">Tech Failures</span></div>
+        </div>
+        <ul class="deliverables">
+          <li>Created full event runbook with minute-by-minute schedule across 3 days</li>
+          <li>Coordinated 12 speakers, A/V team & 3 external vendors</li>
+          <li>Built attendee registration flow, reminder sequences & post-event survey</li>
+          <li>Delivered a 15-page post-event impact report to stakeholders</li>
+        </ul>
+      </div>
+      <div class="project-footer">
+        <span class="tool-pill">Zoom Events</span>
+        <span class="tool-pill">Notion</span>
+        <span class="tool-pill">Typeform</span>
+        <span class="tool-pill">Asana</span>
+      </div>
+    </div>
+
+    <!-- PROJECT 5 -->
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-type">Systems & Automation</div>
+        <div class="project-name">Executive Operations Command Centre — ClickUp Workspace Build</div>
+        <span class="project-industry">🏢 Corporate · Executive-level ops support</span>
+      </div>
+      <div class="project-body">
+        <p class="project-challenge">A scaling company needed a centralised ClickUp command centre for their CEO — one system to manage her inbox, calendar prep, stakeholder follow-ups, contracts, and team tasks, with automations that ran the routine work without her ever touching it.</p>
+        <div class="project-metrics">
+          <div class="metric"><span class="metric-val">6hrs</span><span class="metric-key">Saved/Week via Automations</span></div>
+          <div class="metric"><span class="metric-val">12</span><span class="metric-key">Active Automations Built</span></div>
+          <div class="metric"><span class="metric-val">94%</span><span class="metric-key">On-Time Task Delivery</span></div>
+        </div>
+        <ul class="deliverables">
+          <li>Built a full 5-space ClickUp OS — Calendar Ops, Inbox & Comms, Projects, Stakeholder CRM & SOP Library</li>
+          <li>Designed 12 automations including email-to-task capture, meeting prep briefs, deadline escalation alerts & contract renewal reminders</li>
+          <li>Created a CEO Dashboard with live task queue, space progress tracking and weekly performance metrics</li>
+          <li>Reduced CEO administrative load by 30% — zero overdue tasks in the first month of operation</li>
+        </ul>
+      </div>
+      <div class="project-footer">
+        <span class="tool-pill">ClickUp</span>
+        <span class="tool-pill">Zapier</span>
+        <span class="tool-pill">Gmail</span>
+        <span class="tool-pill">Notion</span>
+        <span class="tool-pill">Slack</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="tools-section" id="tools">
+  <div class="reveal">
+    <span class="section-label">My Toolkit</span>
+    <h2 class="section-title">Tools I <em>Master</em></h2>
+    <p class="section-sub">I don't just know these tools — I build systems with them that teams actually love using.</p>
+  </div>
+  <div class="tools-grid">
+    <div class="tool-card reveal"><div class="tool-emoji">📋</div><div class="tool-name">Asana</div><div class="tool-cat">Project Management</div></div>
+    <div class="tool-card reveal"><div class="tool-emoji">🗂️</div><div class="tool-name">Notion</div><div class="tool-cat">Team OS & Docs</div></div>
+    <div class="tool-card reveal"><div class="tool-emoji">✅</div><div class="tool-name">ClickUp</div><div class="tool-cat">Task Management</div></div>
+    <div class="tool-card reveal"><div class="tool-emoji">🗓️</div><div class="tool-name">Monday.com</div><div class="tool-cat">Project Tracking</div></div>
+    <div class="tool-card reveal"><div class="tool-emoji">💬</div><div class="tool-name">Slack</div><div class="tool-cat">Team Communication</div></div>
+    <div class="tool-card reveal"><div class="tool-emoji">⚡</div><div class="tool-name">Zapier</div><div class="tool-cat">Automation</div></div>
+    <div class="tool-card reveal"><div class="tool-emoji">📊</div><div class="tool-name">Airtable</div><div class="tool-cat">Data & Databases</div></div>
+    <div class="tool-card reveal"><div class="tool-emoji">🎥</div><div class="tool-name">Loom</div><div class="tool-cat">Async Updates</div></div>
+    <div class="tool-card reveal"><div class="tool-emoji">📁</div><div class="tool-name">Google Workspace</div><div class="tool-cat">Docs, Sheets, Drive</div></div>
+    <div class="tool-card reveal"><div class="tool-emoji">🎨</div><div class="tool-name">Canva</div><div class="tool-cat">Visual Reports</div></div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-section">
+  <div class="reveal">
+    <span class="section-label">How I Work</span>
+    <h2 class="section-title">My <em>Process</em></h2>
+    <p class="section-sub">Every project follows a clear, collaborative rhythm — so you always know what's happening and what's coming next.</p>
+  </div>
+  <div class="process-steps">
+    <div class="process-step reveal">
+      <div class="step-num">01</div>
+      <div class="step-title">Discovery Call</div>
+      <div class="step-desc">We align on your goals, pain points, current systems and what success looks like for you.</div>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">02</div>
+      <div class="step-title">Ops Audit</div>
+      <div class="step-desc">I review your existing workflows, tools and team structure to identify gaps and quick wins.</div>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">03</div>
+      <div class="step-title">Build & Implement</div>
+      <div class="step-desc">I design and deploy the systems, SOPs and coordination structures your project needs.</div>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">04</div>
+      <div class="step-title">Train & Hand Off</div>
+      <div class="step-desc">Your team gets fully onboarded with documentation, walkthroughs and ongoing support.</div>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">05</div>
+      <div class="step-title">Review & Refine</div>
+      <div class="step-desc">We measure results, gather feedback and iterate to ensure the systems keep working as you grow.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" style="background: var(--cream);">
+  <div class="reveal">
+    <span class="section-label">Client Reviews</span>
+    <h2 class="section-title">What Clients <em>Say</em></h2>
+    <p class="section-sub">Results matter — but so does the experience of working together. Here's what clients have shared.</p>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testi-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"Deborah completely transformed how our team operates. She set up our Notion workspace in a way that was intuitive, scalable, and actually got adopted by the whole team. Worth every penny — and more."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">MR</div>
+        <div><div class="testi-name">Marcus R.</div></div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"She delivered our product launch 2 weeks ahead of schedule with zero drama. Her ability to juggle vendors, timelines and team communication while keeping everyone calm is genuinely rare. We'll be back."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">AI</div>
+        <div><div class="testi-name">Amira I.</div></div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"Working with Deborah felt like finally having someone who could see the whole chessboard. She audited our ops, identified issues we hadn't even noticed, and gave us systems we still use 18 months later."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">TN</div>
+        <div><div class="testi-name">Thandeka N.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="reveal">
+    <h2 class="section-title" style="color:#fff; margin-bottom:1rem;">Ready to Build Something <em style="color:rgba(255,255,255,.75);">That Actually Works?</em></h2>
+    <p class="section-sub">Whether you're launching a product, fixing broken operations, or building a system from scratch — I'm ready to help. Let's connect and get started.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem;">
+      <a href="mailto:happinessdeborahnjenga@gmail.com" class="btn-white">✉ happinessdeborahnjenga@gmail.com</a>
+      <a href="https://calendly.com/happinessdeborahnjenga/30min" target="_blank" class="btn-white" style="background:transparent;border:2px solid #fff;color:#fff;">📅 Book a Discovery Call</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <span>Deborah</span> · Operations Coordinator & Project Manager · All Rights Reserved</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
